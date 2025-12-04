@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RW 12 Mojoroto</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+* {margin:0; padding:0; box-sizing:border-box;}
+body {
+  font-family:"Poppins",sans-serif;
+  background:linear-gradient(135deg,#009688,#26a69a,#4db6ac);
+  color:#333;
+  min-height:100vh;
+}
+
+/* HEADER */
+header {
+  background:linear-gradient(90deg,#00695c,#4527a0);
+  color:white;
+  text-align:center;
+  padding:15px 0 10px;
+  box-shadow:0 2px 8px rgba(0,0,0,0.3);
+  position:sticky;
+  top:0;
+  z-index:100;
+}
+.logo {
+  width:100px;
+  height:100px;
+  border-radius:50%;
+  background:#ffffffcc;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  margin:0 auto 8px;
+  box-shadow:0 4px 12px rgba(0,0,0,0.3);
+}
+.logo img {
+  width: 90%;
+  height: 90%;
+  object-fit: contain;
+}
+
+
+.marquee-container {
+  position:relative;
+  width:100%;
+  overflow:hidden;
+  background:linear-gradient(90deg,#26a69a,#4db6ac);
+  padding:5px 0;
+}
+.marquee {
+  white-space:nowrap;
+  overflow:hidden;
+  color:#ffeb3b;
+  font-weight:700;
+  font-size:18px;
+}
+.marquee span {
+  display:inline-block;
+  padding-left:100%;
+  animation:scrollText 50s linear infinite;
+}
+@keyframes scrollText {
+  0% {transform:translateX(0);}
+  100% {transform:translateX(-100%);}
+}
+.marquee-line {
+  border:0;
+  height:5px;
+  background-color:purple;
+  margin:0;
+}
+
+/* CONTAINER */
+.container {
+  max-width:1100px;
+  margin:20px auto;
+  padding:0 15px;
+  text-align:center;
+  color:white;
+  text-shadow:1px 1px 3px rgba(0,0,0,0.5);
+}
+
+/* MENU */
+.menu-vertikal {
+  list-style:none;
+  padding:0;
+  margin:20px auto;
+  display:inline-block;
+  text-align:left;
+}
+.menu-vertikal li {margin-bottom:10px;}
+.menu-vertikal li a {
+  text-decoration:none;
+  display:block;
+  padding:10px 15px;
+  background:rgba(0,77,64,0.9);
+  color:#e0f2f1;
+  border-radius:6px;
+  transition:0.3s;
+}
+.menu-vertikal li a:hover {background:#00796b; color:#fff;}
+
+/* PROGRAM */
+.program {
+  background:white;
+  margin-bottom:20px;
+  padding:15px;
+  border-radius:8px;
+  box-shadow:0 2px 6px rgba(0,0,0,0.2);
+}
+.program h2 {color:#003366; margin-top:0;}
+
+.foto-program {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:20px;
+  margin-top:20px;
+}
+.foto-item {
+  width:100%;
+  max-width:700px;
+  text-align:center;
+}
+.foto-item img {
+  width:100%;
+  height:auto;
+  border-radius:10px;
+  box-shadow:0 4px 8px rgba(0,0,0,0.3);
+  transition:0.3s;
+  cursor:pointer;
+}
+.foto-item img:hover {transform:scale(1.05);}
+.tanggal {margin-top:5px; color:#fff; font-weight:600;}
+.keterangan {
+  margin-top:5px;
+  font-size:14px;
+  color:#ffeb3b;
+  font-weight:600;
+  text-shadow:1px 1px 3px rgba(0,0,0,0.5);
+}
+
+/* VIDEO RESPONSIVE */
+.video-container {
+  position: relative;
+  width: 100%;
+  max-width: 700px;
+  padding-bottom: 56.25%; /* 16:9 ratio */
+  height: 0;
+  margin: 20px auto; /* center */
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* BUTTON */
+button.back-btn {
+  display:inline-block;
+  margin-top:20px;
+  padding:10px 15px;
+  background:#00796b;
+  color:#fff;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
+  transition:0.3s;
+}
+button.back-btn:hover {background:#004d40;}
+
+/* FOOTER */
+footer {
+  background:rgba(0,77,64,0.9);
+  text-align:center;
+  padding:15px 10px;
+  margin-top:30px;
+  color:#fff;
+  border-radius:10px 10px 0 0;
+}
+
+/* LIGHTBOX */
+.lightbox-overlay {
+  position: fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  background: rgba(0,0,0,0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  display: none;
+}
+.lightbox-overlay img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.8);
+}
+.lightbox-overlay:target {
+  display: flex;
+}
+
+@media(max-width:768px){ .foto-program img{width:100%;} }
+</style>
+</head>
+
+<body>
+<header>
+  <div class="logo">
+    <img src="https://lh3.googleusercontent.com/pw/AP1GczMyEe--va9kSUcCLk4vfvek3MNxUjyguSYf2BHKjoj4_wKrgBcOCIXPLMd9fjTyMkLEf_2hYdvSrRCqAuPHcgHujx9IyGP_AsvHJh3afyxOnVQYeZMYY7vxasa1hQI-hrVwrhsp5FRwGqb3O3-FpFKU=w362-h328-s-no?authuser=0" alt="Logo RW12">
+
+  </div>
+  <div class="marquee-container">
+    <div class="marquee"><span>GALERI PROGRAM DAN KEGIATAN RW 12  * KAMPUNG OLEH - OLEH KELURAHAN MOJOROTO KOTA KEDIRI*</span></div>
+    <hr class="marquee-line">
+  </div>
+</header>
+
+<div class="container" id="pageContent">
+  <h1>Selamat Datang di RW 12 Mojoroto</h1>
+  <p>Pilih RW/RT untuk melihat seksi-seksinya:</p>
+  <ul class="menu-vertikal">
+    <li><a onclick="gotoPage2('RW12')">RW12</a></li>
+    <li><a onclick="gotoPage2('RT09')">RT09</a></li>
+    <li><a onclick="gotoPage2('RT10')">RT10</a></li>
+    <li><a onclick="gotoPage2('RT35')">RT35</a></li>
+    <li><a onclick="gotoPage2('RT36')">RT36</a></li>
+  </ul>
+</div>
+
+<footer>&copy; 2025 RW 12 Kelurahan Mojoroto</footer>
+
+<!-- Lightbox -->
+<div id="lightbox" class="lightbox-overlay" onclick="closeLightbox()">
+  <img id="lightbox-img" src="">
+</div>
+
+<script>
+// Lightbox functions
+function openLightbox(url){
+  document.getElementById('lightbox-img').src = url;
+  document.getElementById('lightbox').style.display = 'flex';
+}
+function closeLightbox(){
+  document.getElementById('lightbox').style.display = 'none';
+}
+
+// Data RW/RT
+const seksisPerRWRT = {
+  "RW12": ["Kesekretariatan RW 12","Bendahara","Keamanan","Pembangunan","Perekonomian","Sosial RW 12","Pemberdayaan Perempuan","Pemuda Olah Raga & Pendidikan RW 12","Karang Taruna","ILP / Posyandu","Bank Sampah","UMKM RW 12"],
+  "RT09": ["Kesekretariatan RT 09","Bendahara","Keamanan","Pembangunan","Perekonomian","Sosial RT 09","Pemberdayaan Perempuan","Pemuda Olah Raga & Pendidikan RT 09"],
+  "RT10": ["Kesekretariatan RT 10","Bendahara","Keamanan","Pembangunan","Perekonomian","Sosial RT 10","Pemberdayaan Perempuan","Pemuda Olah Raga & Pendidikan RT 10"],
+  "RT35": ["Kesekretariatan RT 35","Bendahara","Keamanan","Pembangunan","Perekonomian","Sosial RT 35","Pemberdayaan Perempuan","Pemuda Olah Raga & Pendidikan RT 35","Dasa Wisma RT 35","Urban Farming RT 35"],
+  "RT36": ["Kesekretariatan RT 36","Bendahara","Keamanan","Pembangunan","Perekonomian","Sosial RT 36","Pemberdayaan Perempuan","Pemuda Olah Raga & Pendidikan RT 36"]
+};
+
+// Program data
+const programs = {
+  // contoh singkat, isi lengkap seperti sebelumnya
+  "Kesekretariatan": [
+    {title:"Pendataan Warga RW12", tanggal:"01-10-2025", keterangan:"Pendataan seluruh warga RW12.", photo:"https://via.placeholder.com/400x600?text=Pendataan+RW12"}
+  ],
+
+
+  "Sosial RW 12": [
+  {
+    title: "Halal bi Halal RW12",
+    tanggal: "20-04-2025",
+    photos: [
+      {
+        url: "https://lh3.googleusercontent.com/pw/AP1GczOdsGN8JM6u3_1jfl4IiFOezKjFxIs6Dj24gvAF37lIT5aL1VA9pQ3qOvPtsQior_ZOAg9_tG1Us8NoU69pfQo8jqObov8um7helERlcfQ1112VykVJuiQ7zXqVDv0o7m4nKB6udQXGlyC6pAl2nLFG=w720-h540-s-no?authuser=0",
+        keterangan: "Bersama Pak Lurah Achmad Khoirudin"
+      },
+
+{
+        url: "https://lh3.googleusercontent.com/pw/AP1GczO9RGSIutIu5uX-GELiAm-94iPfYI4yCSLSj5hzRgEgeB6u1fQCKdkOSUjgbjdXqSL3NZw7adXhgyQ3xu9Je5XpdMX7mg2uKJc91u_kgC8JRckDPLjhU-uvFX-StqXtqwCXOVF_Nuw5QEkk8jlLZ3yK=w720-h540-s-no?authuser=0",
+        keterangan: "Ibu Ibu Panitia Halal bi Halal RW 12 2025"
+      },
+    
+    ],
+    video: "https://www.facebook.com/reel/780845514952277" 
+  }
+],
+
+
+
+ "Pemuda Olah Raga & Pendidikan RW 12":[
+  {
+    title:"Bazar Kelurahan Mojoroto 2025",
+    tanggal:"1 November 2025",
+    keterangan:"Lomba Bazar Antar RW Kelurahan Mojoroto 2025.",
+    photos:[
+      {
+  url: "https://lh3.googleusercontent.com/pw/AP1GczPF-AKB5Pr8s4CiONfXHs4cf2W85IkmoLm9MYurI53aXGiqvQWpBj9nLHlQEK4dTyUreL8T8hng4JRTuBBcA06nu_N8YeS9n2f3L9I-g3aratPjy7yf-QJX6mnZps_I_lPsXVpifsBFcZn1k3ZJ9RE3=w736-h1000-s-no?authuser=0",
+  tanggal: "1 November 2025",
+  keterangan: "Persiapan Lomba Fashion Show"
+},
+
+      {
+        url:"https://lh3.googleusercontent.com/pw/AP1GczP1X92NDGw9P7QCd2tZoCRxEDTCio-Wgs51AorIzY-5j9ks9_RlZ8H74zmHxeXrjp8HWfq4BZZVOEfiV2C2gxUoLTxNV7dett_kQb--06W306O0uPGzw1F-znowSFtGvhiAUjZX1iMkCmvzQUQFMfcg=w738-h1002-s-no?authuser=0",
+tanggal: "1 November 2025",
+        keterangan:"Persiapan Lomba Fashion Show"
+      },
+
+{
+        url:"https://lh3.googleusercontent.com/pw/AP1GczOiS-GQaaTDMqbVzGUPRz1vmpuCF1f6vtRZ0HDl0xiMpsdstDZP4kHKfAdjNlOESVVPb-eOMIQzs62iTJhDmMDwhM-C-HOplAcViPj7Q3TWMWAjKpD7uCQWkxBpscuXkXaTx_M5Uzbi71QIeB8aoXZ_=w1335-h1002-s-no?authuser=0",
+tanggal: "1 November 2025",
+        keterangan:"Persiapan Lomba Fashion Show"
+
+      },
+
+ {
+        url:"https://lh3.googleusercontent.com/pw/AP1GczMeQwqt2Xl6E5Km_KIDLZbxMisUwffswLWjfu09j9fYXctYoxGPmbQtKGvxmZzHfIKQutV4TYqwDBiCiLyyDUGdmHF10WJYiWU6957_wb_Xumy4vJdVGeGmduDTpLGO6s40ze-VamIo-iNF-TfeYH0Z=w1335-h1002-s-no?authuser=0",
+tanggal: "1 November 2025",
+        keterangan:"Persiapan Lomba Fashion Show"
+      },
+
+{
+        url:"https://lh3.googleusercontent.com/pw/AP1GczOxn08HtWoj0U2yLqsst7rRZCrjcn08xvXBgI_71L-5-GpIzWIanoRC7Ixe33V94CB-6D6o275IPtwyVRRTGhM9YYXfW2lWNtm8yq9u3yLstcuaTT2otPDCCQeQ6oBZxqhnad1chbHUg0oToeIw5_sh=w736-h1000-s-no?authuser=0",
+tanggal: "1 November 2025",
+        keterangan:"Persiapan Lomba Fashion Show"
+      },
+
+
+{
+        url:"https://lh3.googleusercontent.com/pw/AP1GczN58hoM3CsniIGCTmMnQAMOZFljqHPh1xk9DkQGW1OawPDT3Ba9KtEPaqG38bxHbApIHMDUHr-0kiegDRPBIofa3o32EX0qvLfc0Bh9NxTXX5iBYOv5SrBNvs2856fZskLEEMw3T7K2KN9xFGHFDdbn=w738-h1002-s-no?authuser=0",
+tanggal: "1 November 2025",
+          keterangan:"Maskot Bazar RW 12 Kel. Mojoroto 2025"
+
+      },
+
+{
+        url:"https://lh3.googleusercontent.com/pw/AP1GczNEAS8TcSGaHNGS3PIQaQzA04cAb2mlmQq0I_NAAl4eGZOEOYQjtXLSTOdWFKttOiEMrAFQ_S9oo4O9W7rtOZFxOCwoRmvjsREU2bmBx6wmOBlg1lYPMCOLi3JyDZ31FQ_FlJXFEoEJh6aY3DqUP1Fu=w738-h1002-s-no?authuser=0",
+tanggal: "1 November 2025",
+           keterangan:"Maskot Bazar RW 12 Kel. Mojoroto 2025"
+
+
+      },
+{
+        url:"https://lh3.googleusercontent.com/pw/AP1GczPqPjBSE3dexrBQh6kFVIXdJTFiUTReg2jxLxIcTEW4NgSwwO3rJ1g5CBRC4Ggfm63etKIU_XLsDCKjyEt5xf77EuDCUcINGZTQLqp13UgY3FNU0yr62MWS5oDIOE-X3l8PNyfquDUy4QdJGzKpe7dH=w1280-h960-s-no?authuser=0",
+tanggal: "1 November 2025",
+           keterangan:"Maskot Bazar RW 12 Kel. Mojoroto 2025"
+
+
+      },
+
+
+
+    ],
+    video:"https://www.facebook.com/reel/4233342873610023"
+
+  },
+ {
+    title: "Senam",
+    tanggal: "01-11-2025",
+    keterangan: "Senam Minggu Pagi",
+    photos: [
+      {
+        url: "https://lh3.googleusercontent.com/pw/AP1GczPd4u7UwjYfpAtlHKIXGgaEm0XYrA_97rZB5QT5EmXedBzd7oATIlfg0veJAjvCTi6gBmgU9RSymr89UQR3_csMgDPa5CQlOeAqaahkuSef2QDOPm_ragBxzN0bA7SZR4cwY7IQiBTTCOA3-88tXTEB=w1160-h1002-s-no?authuser=0",
+        keterangan: "Senam Minggu pagi"
+      }
+    ],
+    video: ""
+  }
+],
+
+
+// <--- ini array ditutup
+ "Dasa Wisma RT 35": [
+  {
+    title: "Pembentukan Dasa Wisma RT 35",
+    tanggal: "25-05-2025",
+    photos: [
+      {
+        url: "https://lh3.googleusercontent.com/pw/AP1GczM7hAi_z89l2vYx7CXFOO63uQtZgIB9NIPAEPR2TUxslwYKl9sI1X2sXOA8mCfHEVzv9ICaQP3kVW4PiyZ07vtACYbgRp68uZ3lJtEog0tcBXcp4P5gZgb0RsnRsSbphHmEyJxt20Pk8aQxzYzJ3S_L=w1227-h895-s-no?authuser=0",
+tanggal: "25-05-2025",
+        keterangan: "Pembentukan Dasa Wisma RT 35 RW 12 Kelurahan Mojoroto"
+      },
+      {
+        url: "https://lh3.googleusercontent.com/pw/AP1GczPJ3oagxasAZHUZe6dnOcu6TKoq3yaFI53FPXBJxGs47TUz5LGARZ_U4TCJDoOa2T9ad2ri0-_nEuVK9hWgaG-Bj_6kPDG7-CQaF_Luuxq_uHAQHb2Rc0zJUX1MS08krTsZICb5TUwGsAH6LetVdK5T=w1335-h1002-s-no?authuser=0",
+        keterangan: "Arisan Dasa Wisma RT 35 RW 12 Kelurahan Mojoroto"
+      }
+    ],
+    video: "" // kosong jika tidak ada video
+  }
+],
+
+"Sosial RT 35": [
+  {
+    title: "Kerja Bhakti RT 35",
+    tanggal: "2025",
+    photos: [
+      {
+        url: "https://lh3.googleusercontent.com/pw/AP1GczNE0wHuDbP0lfTYrwovd6xNDEl1JbfHhdNivDDHEXf-ENpeSqNajvCpElhIhm2vMAMqu1cCQC5pR067ZQRI-kRuv2N4mtJbYG_gulKk3tNKYQXK8dDegM15jZs90cKLkpAcDuqEJGbFEULnNBoHIRBA=w1335-h1002-s-no?authuser=0",
+        keterangan: "Kerja Bhakti RT 35 RW 12 Kelurahan Mojoroto"
+      }
+    ],
+    video: "" // kosong jika tidak ada video
+  },
+  {
+    title: "Arisan RT 35",
+    tanggal: "2025",
+    photos: [
+      {
+        url: "https://lh3.googleusercontent.com/pw/AP1GczNG3iQ0FQRwBMTP_NczZa5Bvoas15Ah1ui6-BR0DHNCg8_9uy5WhyWASlf9N5RK9BKqiQvv4_pr8AGZ6TQzgR6u2YfzOiiZoempytgU3VIWHWyaGHfXq9wNylzjRWPczrfR9kyuAz4ifFrKWq85Fyyb=w1600-h900-s-no?authuser=0",
+        keterangan: "Arisan RT 35 RW 12 Kelurahan Mojoroto"
+      }
+    ],
+    video: "" // kosong jika tidak ada video
+  }
+],
+
+
+"UMKM RW 12": [
+  {
+    title: "ANGKRINGAN 007",
+    tanggal: "11-08-2013",
+
+
+    photos: [
+      {
+        url: "https://scontent.fcgk34-1.fna.fbcdn.net/v/t39.30808-6/577062198_838538575783926_3455774527465523114_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=127cfc&_nc_ohc=zEbNbpoOE3cQ7kNvwEaR-wU&_nc_oc=Adn1o_9iZMWP8VPv15WcfSl2-PgdwAxs_nafwsmUwuE0MtdnuSI9bx8kgc83ac6-_r4&_nc_zt=23&_nc_ht=scontent.fcgk34-1.fna&_nc_gid=LPrYY57oHJe1Uxqy24knyg&oh=00_Afgwxlk69twFb_wh7MC91k8qdGpD28MMSwX8fsW5oe372Q&oe=690E4D0B",
+        tanggal: "11-07-20",
+        keterangan: "Bersama Mas Abu"
+      },
+      {
+        url: "https://scontent.fcgk34-1.fna.fbcdn.net/v/t1.6435-9/64949499_149138689532295_2313140034095546368_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=cc71e4&_nc_ohc=iPl1exXPSSsQ7kNvwH3jefN&_nc_oc=Admrd601yJH81DFVcB2qfNzFzwcGUBPJ2aPRHFmmJrvPteuldy8bCIK6KgiaxUPNeo8&_nc_zt=23&_nc_ht=scontent.fcgk34-1.fna&_nc_gid=-mvOUc5OKs6XytFdKIW-IQ&oh=00_AfgfMKCtjo0G0vd1slPR2yXMVmyN-KpL9fr5E1U6iHcgKQ&oe=692FEEE8",
+        tanggal: "11-07-20",
+        keterangan: "Berbagai Media"
+      }
+    ],
+    video: "https://www.facebook.com/angkringan.nolnoltujuh.5/videos/772319591351381/?rdid=fFGhmmQPZY2Ch3OH" // gunakan satu video saja
+  }
+],
+
+"Urban Farming RT 35": [
+  {
+    title: "Urban Farming RT 35 RW 12 Kel Mojoroto",
+    tanggal: "11-07-2025",
+
+
+    photos: [
+      {
+        url: "https://lh3.googleusercontent.com/pw/AP1GczMduR556uIcOGOHBxsYNtfEW02Sft5D36kR_Ey1aeW6B1g1ph_PBVs6_kakry2BTB2KUKcfU2VTLJn_8Y24zA9bc20stTmu2yNPVmm9NdFgD5QXrhDstzJhWTyksowKJ8lt8kUKPTbwLSnd05TrnLtc=w505-h601-s-no?authuser=0",
+        tanggal: "11-07-2025",
+        keterangan: "Dasa Wisma 1 Giliran membersihkan Lahan"
+      },
+      {
+        url: "https://lh3.googleusercontent.com/pw/AP1GczMQJnsFgYdmAxGB540P9dG5RPwmmW-gQRX1iAUgdLAN2K01JkkD3MHtls4PuSuLTrQoz0V3ecB4-2Jiv0ylW39MQB1XpZRhNphk8OC5RTqDv_MjKzGoqEusZznfO65bg9fumqtoSGKN_pcr1JJdzKqS=w445-h601-s-no?authuser=0",
+        tanggal: "11-07-2025",
+        keterangan: "Panen Bayam Oleh Dasa Wisma 1"
+      }
+    ],
+    video: "https://www.facebook.com/reel/2272747996909608" // gunakan satu video saja
+  }
+],
+
+"Pemuda Olah Raga & Pendidikan RT 35":[
+  {
+    title: "Malam Tirakatan RT 35 RW 12",
+    tanggal: "16-08-2025",
+    photos: [
+      {
+        url: "https://scontent.fcgk34-1.fna.fbcdn.net/v/t39.30808-6/534336574_25124742857127509_355826914146200836_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=833d8c&_nc_ohc=T_uqjgGISxIQ7kNvwGPyU3s&_nc_oc=AdlNB-E57xmmlduSImX5Y1N9qaOWBvVWEUl0H0oCTTsp3VQPxwfVRxMt9FyAjKc8Sfk&_nc_zt=23&_nc_ht=scontent.fcgk34-1.fna&_nc_gid=mUkfNyXJWyTHVZnREmv__Q&oh=00_AfgzyRJShM81Ok5hfb79f9GAw5gg38gSAO1-L3wOslsNkA&oe=690DE564",
+        tanggal: "16-08-2025",
+        keterangan: "Malam Tirakatan RT 35 RW 12"
+      },
+      {
+        url: "https://scontent.fcgk34-1.fna.fbcdn.net/v/t39.30808-6/534396733_25124743477127447_1497144901560100927_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=833d8c&_nc_ohc=BZr1K0qA-qsQ7kNvwEtyR30&_nc_oc=Adm5c0hMzRXTLTgR5ei-DPFk0zadu3XYEdHoR5xo-Y2KvsGQGObgPQGde2LkAk2GlPM&_nc_zt=23&_nc_ht=scontent.fcgk34-1.fna&_nc_gid=DCwpLE9QuJr30eWRfHK9KA&oh=00_AfiKW40E4xoirED9c-0fogMpMc7lEQ0dkRXbVcPBSCY7fQ&oe=690DF07A",
+        tanggal: "16-08-2025",
+        keterangan: "Malam Tirakatan RT 35 RW 12"
+      },
+
+{
+        url: "https://scontent.fcgk34-1.fna.fbcdn.net/v/t39.30808-6/534438796_25124749287126866_5845284657518044625_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=833d8c&_nc_ohc=VzY272R8llAQ7kNvwHSiK8I&_nc_oc=AdkLtev_YLczMN8XcI45RZpOndB4mlJFSEtIfr2p1hzoAkt_lyXTxBRYeQ2atzalMVI&_nc_zt=23&_nc_ht=scontent.fcgk34-1.fna&_nc_gid=PWP-ZzCLqBX_t8Jnex6N-g&oh=00_Afj9FX743RYbEzWGAZAZhz0mxQCkx2pQ9XLoU0LezP4J4w&oe=690DF28C",
+        tanggal: "16-08-2025",
+        keterangan: "Malam Tirakatan RT 35 RW 12"
+      },
+{
+        url: "https://scontent.fcgk34-1.fna.fbcdn.net/v/t39.30808-6/532892068_25124754520459676_8948242666141925617_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=833d8c&_nc_ohc=R4oMM5_RRjsQ7kNvwE2Ysgz&_nc_oc=AdnSdLGOZoO_zll-6TVGO4KEdhTyFzk_f7Hpj_NAHliYHBzuPxYD66z8CXHj1nL2trQ&_nc_zt=23&_nc_ht=scontent.fcgk34-1.fna&_nc_gid=1KrbHsnCVJXNBPjed6stSA&oh=00_AfgrgF_tYuf5WVN4KHPRJmSubnVm_Fo7F8gcr6bx-XaE2g&oe=690DC833",
+        tanggal: "16-08-2025",
+        keterangan: "Malam Tirakatan RT 35 RW 12"
+      },
+{
+        url: "https://scontent.fcgk34-1.fna.fbcdn.net/v/t39.30808-6/534295127_25124740957127699_463924990937187589_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=833d8c&_nc_ohc=GQYJ5CT5UvIQ7kNvwE1TgmA&_nc_oc=AdnTYwwoOjoniHJuQJI3oAFYrZAyCBSIFOI9D79Wr1XnaXZPJnfsfI-7u9ToVX4it3w&_nc_zt=23&_nc_ht=scontent.fcgk34-1.fna&_nc_gid=PsX0Fjz3Z6rpPd52FIzLIA&oh=00_AfjrkaIVZAdZoHnt3EY77cGOgUT9m15oVmJI3SEcLVrfuA&oe=690DF504",
+        tanggal: "16-08-2025",
+        keterangan: "Malam Tirakatan RT 35 RW 12"
+      },
+{
+        url: "https://scontent.fcgk34-1.fna.fbcdn.net/v/t39.30808-6/535044333_25124742493794212_1201092372979822208_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=833d8c&_nc_ohc=ncYhaLUQOEoQ7kNvwHYbvhF&_nc_oc=AdlZc8kKBI2PYApGj7TYNI46l0QWC9DZoHYpzRP2PEBHoA2fW8tFNInsWbDVHNpOcPM&_nc_zt=23&_nc_ht=scontent.fcgk34-1.fna&_nc_gid=odusST2Tmd4GBdsdw_W8Qw&oh=00_AfgnV44pigI74tC1cag1o_lxfY9FU6XuQq2O_E8oVl8fCw&oe=690DEF8A",
+        tanggal: "16-08-2025",
+        keterangan: "Malam Tirakatan RT 35 RW 12"
+      },
+
+    ],
+video: "https://www.facebook.com/reel/32630898673190691"
+  }
+],
+
+}; // <--- ini objek programs ditutup
+
+
+// Navigation
+function gotoPage1(){
+  const content=document.getElementById("pageContent");
+  content.innerHTML=`
+    <h1>Selamat Datang di RW 12 Mojoroto</h1>
+    <p>Pilih RW/RT untuk melihat seksi-seksinya:</p>
+    <ul class="menu-vertikal">
+      <li><a onclick="gotoPage2('RW12')">RW12</a></li>
+      <li><a onclick="gotoPage2('RT09')">RT09</a></li>
+      <li><a onclick="gotoPage2('RT10')">RT10</a></li>
+      <li><a onclick="gotoPage2('RT35')">RT35</a></li>
+      <li><a onclick="gotoPage2('RT36')">RT36</a></li>
+    </ul>`;
+}
+
+function gotoPage2(rwrt){
+  const content=document.getElementById("pageContent");
+  content.innerHTML=`
+    <h2>${rwrt} - Pilih Seksi</h2>
+    <ul class="menu-vertikal" id="seksiList"></ul>
+    <button class="back-btn" onclick="gotoPage1()">← Kembali</button>`;
+  const list=document.getElementById("seksiList");
+  (seksisPerRWRT[rwrt]||[]).forEach(seksi=>{
+    const li=document.createElement("li");
+    li.innerHTML=`<a onclick="gotoPage3('${rwrt}','${seksi}')">${seksi}</a>`;
+    list.appendChild(li);
+  });
+}
+
+function gotoPage3(rwrt,seksi){
+  const content=document.getElementById("pageContent");
+  content.innerHTML=`
+    <h2>${rwrt} - ${seksi} - Program</h2>
+    <ul class="menu-vertikal" id="programList"></ul>
+    <button class="back-btn" onclick="gotoPage2('${rwrt}')">← Kembali</button>`;
+  const list=document.getElementById("programList");
+  const data = programs[seksi] || [];
+  if(data.length===0){
+    list.innerHTML="<p>Tidak ada program.</p>";
+  } else {
+    data.forEach((p,i)=>{
+      const li=document.createElement("li");
+      li.innerHTML=`<a onclick="gotoPage4('${rwrt}','${seksi}',${i})">${p.title}</a>`;
+      list.appendChild(li);
+    });
+  }
+}
+
+function gotoPage4(rwrt,seksi,index){
+  const p = programs[seksi]?.[index];
+  if(!p){ alert("Program tidak ditemukan."); return; }
+
+  let mediaHTML = "";
+
+  // Tampilkan semua foto dulu, jika ada
+  if(p.photos){
+  mediaHTML += p.photos.map(photo => `
+    <div class="foto-item">
+      <img src="${photo.url}" onclick="openLightbox('${photo.url}')">
+      <div class="tanggal">📅 ${photo.tanggal}</div>
+      <div class="keterangan">${photo.keterangan}</div>
+    </div>
+  `).join("");
+} else if(p.photo){ // jika hanya 1 foto
+  mediaHTML += `
+    <div class="foto-item">
+      <img src="${p.photo}" onclick="openLightbox('${p.photo}')">
+      <div class="tanggal">📅 ${photo.tanggal}</div>
+      <div class="keterangan">${p.keterangan}</div>
+    </div>`;
+}
+ else if(p.photo){ // jika hanya 1 foto
+    mediaHTML += `
+      <div class="foto-item">
+        <img src="${p.photo}" onclick="openLightbox('${p.photo}')">
+        <div class="tanggal">📅 ${photo.tanggal}</div>
+        <div class="keterangan">${p.keterangan}</div>
+      </div>`;
+  }
+
+  // Tampilkan video di bawah foto, jika ada
+  // Tampilkan video di bawah foto, jika ada
+if(p.video){
+  let videoEmbed = "";
+  if(p.video.includes("facebook.com")){
+    videoEmbed = `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(p.video)}&show_text=false&width=700`;
+  } else if(p.video.includes("youtube.com")){
+    videoEmbed = p.video.replace("watch?v=", "embed/");
+  } else {
+    videoEmbed = p.video;
+  }
+
+  mediaHTML += `
+  <div class="video-container">
+    <iframe 
+      src="${videoEmbed}" 
+      allowfullscreen 
+      allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
+    </iframe>
+  </div>
+  <div class="keterangan">${p.keterangan}</div>`;
+}
+
+
+  // Render halaman program
+  const content = document.getElementById("pageContent");
+  content.innerHTML = `
+    <h2>${rwrt} - ${p.title}</h2>
+    <div class="foto-program">${mediaHTML}</div>
+    <button class="back-btn" onclick="gotoPage3('${rwrt}','${seksi}')">← Kembali</button>`;
+}
+</script>
+</body>
+</html>
